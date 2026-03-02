@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { ApiError } from './ApiError';
-import { logger } from '../../config/logger';
+import { ApiError } from './ApiError.ts';
+import { logger } from '../../config/logger.ts';
 
 export const errorHandler = (
   err: any,

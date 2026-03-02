@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { validateSchema, type ValidationRule, sanitizeInput } from '../utils';
-import { ApiResponse, ValidationError as ValidationErrorClass } from '../utils';
+import type { Request, Response, NextFunction } from 'express';
+import { validateSchema, type ValidationRule, sanitizeInput } from '../utils/index.ts';
+import { ApiResponse, ValidationError as ValidationErrorClass } from '../utils/index.ts';
 
 export const validate = (schema: Record<string, ValidationRule>, target: 'body' | 'query' | 'params' = 'body') => {
   return (req: Request, res: Response, next: NextFunction) => {

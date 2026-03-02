@@ -1,7 +1,11 @@
-import { CarService } from '../services/car.service';
+import { CarService } from '../services/car.service.ts';
 
 export class DeleteCarUseCase {
-  constructor(private service: CarService) {}
+  private service: CarService;
+
+  constructor(service: CarService) {
+    this.service = service;
+  }
 
   execute(id: string) {
     return this.service.delete(id);

@@ -1,5 +1,5 @@
-import { UserModel } from '../schemas/user.schema';
-import { IUser } from '../../domain/auth.types';
+import { UserModel } from '../schemas/user.schema.ts';
+import type { IUser } from '../../domain/auth.types.ts';
 
 export class AuthRepository {
   async create(user: IUser) {

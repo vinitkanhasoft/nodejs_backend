@@ -1,6 +1,6 @@
-import { CarModel } from '../schemas/car.schema';
-import { ICar } from '../../domain/car.types';
-import { PipelineStage } from 'mongoose';
+import { CarModel } from '../schemas/car.schema.ts';
+import type { ICar } from '../../domain/car.types.ts';
+import type { PipelineStage } from 'mongoose';
 
 export class CarRepository {
   async create(data: ICar) {

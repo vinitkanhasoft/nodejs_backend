@@ -1,13 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
-import { formatErrorForResponse, isOperationalError, AppError } from '../utils';
-import { logger } from '../config/logger';
-import { config } from '../config';
+import type { Request, Response } from 'express';
+import { formatErrorForResponse, isOperationalError, AppError } from './../utils/errors.ts';
+import { logger } from '../config/logger.ts';
+import { config } from '../config/index.ts';
 
 export const errorMiddleware = (
   err: unknown,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: Function
 ) => {
   // Log the error
   logger.error('Error occurred:', {

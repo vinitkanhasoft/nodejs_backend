@@ -1,4 +1,4 @@
-import { PipelineStage } from 'mongoose';
+import type { PipelineStage } from 'mongoose';
 
 export const carDashboardPipeline = (): PipelineStage[] => [
   { $sort: { createdAt: -1 } },

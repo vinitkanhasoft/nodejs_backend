@@ -1,4 +1,4 @@
-import { config } from '../config/env';
+import { config } from '../config/env.ts';
 
 export const capitalize = (str: string): string => {
   if (!str || typeof str !== 'string') return '';

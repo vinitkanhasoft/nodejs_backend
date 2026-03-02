@@ -1,6 +1,6 @@
 import Queue from 'bull';
-import { NotificationType } from '../enums';
-import { NotificationPayload } from './notification.service'; // import the payload type
+import { NotificationType } from '../enums/index.ts';
+import { NotificationPayload } from './notification.service.ts'; // import the payload type
 
 export const notificationQueue = new Queue('notification');
 

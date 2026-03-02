@@ -1,9 +1,8 @@
-import { app } from './app';
-import { connectDatabase } from './config/database';
-import { logger } from './config/logger';
-import { config } from './config/env';
+import { app } from './app.ts';          // ← include .ts extension
+import { connectDatabase } from './config/database.ts';
+import { logger } from './config/logger.ts';
+import { config } from './config/env.ts';
 import dotenv from 'dotenv';
-import "./utils/global-debug";
 
 dotenv.config();
 

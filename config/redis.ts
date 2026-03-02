@@ -1,11 +1,11 @@
 import Redis from 'ioredis';
-import { env } from './env';
-import { logger } from './logger';
+import { config } from './env.ts';
+import { logger } from './logger.ts';
 
 export const redisClient = new Redis({
-  host: env.redisHost,
-  port: env.redisPort,
-  password: env.redisPassword,
+  host: config.redis.host,
+  port: config.redis.port,
+  password: config.redis.password,
 });
 
 redisClient.on('connect', () => logger.info('Redis connected'));

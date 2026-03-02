@@ -1,4 +1,4 @@
-import { ICar } from './car.types';
+import { ICar } from './car.types.ts';
 
 export class CarEntity {
   private data: ICar;

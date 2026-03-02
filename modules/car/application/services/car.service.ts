@@ -1,9 +1,13 @@
-import { CarRepository } from '../../infrastructure/repositories/car.repository';
-import { ICar } from '../../domain/car.types';
-import { PipelineStage } from 'mongoose';
+import { CarRepository } from '../../infrastructure/repositories/car.repository.ts';
+import type { ICar } from '../../domain/car.types.ts';
+import type { PipelineStage } from 'mongoose';
 
 export class CarService {
-  constructor(private repo: CarRepository) {}
+  private repo: CarRepository;
+
+  constructor(repo: CarRepository) {
+    this.repo = repo;
+  }
 
   create(data: ICar) {
     return this.repo.create(data);

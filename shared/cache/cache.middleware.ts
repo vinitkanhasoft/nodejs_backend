@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { CacheService } from './cache.service';
+import { CacheService } from './cache.service.ts';
 
 const cache = new CacheService();
 

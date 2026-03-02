@@ -1,16 +1,16 @@
 // Export all utility functions and classes for easy importing
-export * from './helpers';
-export * from './crypto';
-export * from './asyncHandler';
-export * from './ApiResponse';
-export * from './pagination';
-export * from './errors';
-export * from './validation';
+export * from './helpers.ts';
+export * from './crypto.ts';
+export * from './asyncHandler.ts';
+export * from './ApiResponse.ts';
+export * from './pagination.ts';
+export * from './errors.ts';
+export * from './validation.ts';
 
 // Re-export commonly used items
-export { ApiResponse } from './ApiResponse';
-export { asyncHandler } from './asyncHandler';
-export { paginate, type PaginationOptions, type PaginationResult } from './pagination';
+export { ApiResponse } from './ApiResponse.ts';
+export { asyncHandler } from './asyncHandler.ts';
+export { paginate, type PaginationOptions, type PaginationResult } from './pagination.ts';
 export { 
   AppError, 
   ValidationError, 
@@ -38,7 +38,7 @@ export {
   throwIfNull,
   throwIfEmpty,
   errorHandler
-} from './errors';
+} from './errors.ts';
 
 export { 
   Validator, 
@@ -54,7 +54,7 @@ export {
   validateSchema,
   sanitizeInput,
   validateBulk
-} from './validation';
+} from './validation.ts';
 
 export { 
   generateRandomToken,
@@ -72,7 +72,7 @@ export {
   createHashedId,
   generateTOTPSecret,
   verifyTOTP
-} from './crypto';
+} from './crypto.ts';
 
 export {
   capitalize,
@@ -104,4 +104,4 @@ export {
   generateId,
   maskEmail,
   maskPhone
-} from './helpers';
+} from './helpers.ts';
