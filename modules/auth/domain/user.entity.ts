@@ -2,6 +2,8 @@ import { IUser } from './auth.types';
 
 export class UserEntity {
   private data: IUser;
+  isSuccess: any;
+  error: any;
 
   constructor(data: IUser) {
     this.data = data;

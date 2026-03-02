@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { CarController } from '../../modules/car/presentation/car.controller';
-import { validate } from '../../middleware/validation.middleware';
+import { validateBody, validateQuery } from '../../middleware/validation.middleware';
 import {
   createCarSchema,
   updateCarSchema,
@@ -10,11 +10,11 @@ import {
 const router = Router();
 const controller = new CarController();
 
-// CRUD Routes
-router.post('/', validate(createCarSchema), controller.create.bind(controller));
-router.put('/:id', validate(updateCarSchema), controller.update.bind(controller));
-router.delete('/:id', controller.delete.bind(controller));
-router.get('/', validate(searchCarSchema), controller.search.bind(controller));
-router.get('/analytics', controller.analytics.bind(controller));
+// CRUD Routes with validation
+router.post('/', validateBody(createCarSchema), controller.create);
+router.put('/:id', validateBody(updateCarSchema), controller.update);
+router.delete('/:id', controller.delete);
+router.get('/', validateQuery(searchCarSchema), controller.search);
+router.get('/analytics', controller.analytics);
 
 export default router;

@@ -226,10 +226,15 @@ export const isValidHttpMethod = (method: string): method is HttpMethod => {
   return Object.values(HttpMethod).includes(method as HttpMethod);
 };
 
-export const getSuccessMessage = (action: keyof typeof Constants.MESSAGES.SUCCESS): string => {
+export const getSuccessMessage = (
+  action: keyof typeof Constants.MESSAGES.SUCCESS
+): string => {
   return Constants.MESSAGES.SUCCESS[action];
 };
 
-export const getErrorMessage = (error: keyof typeof Constants.MESSAGES.ERROR): string => {
+// Get an error message by key
+export const getErrorMessage = (
+  error: keyof typeof Constants.MESSAGES.ERROR
+): string => {
   return Constants.MESSAGES.ERROR[error];
 };

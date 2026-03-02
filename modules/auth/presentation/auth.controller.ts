@@ -1,9 +1,22 @@
 import { Request, Response } from 'express';
+import {
+  ApiResponse,
+  asyncHandler,
+  AuthenticationError,
+  ValidationError,
+  ConflictError,
+} from '../../../utils';
 import { RegisterUseCase } from '../application/usecases/register.usecase';
 import { LoginUseCase } from '../application/usecases/login.usecase';
 import { RefreshTokenUseCase } from '../application/usecases/refreshToken.usecase';
 import { AuthService } from '../application/services/auth.service';
 import { AuthRepository } from '../infrastructure/repositories/auth.repository';
+import {
+  Constants,
+  HttpStatus,
+  getSuccessMessage,
+  getErrorMessage,
+} from '../../../config';
 
 const authRepo = new AuthRepository();
 const authService = new AuthService(authRepo);
@@ -13,33 +26,50 @@ const loginUseCase = new LoginUseCase(authService);
 const refreshUseCase = new RefreshTokenUseCase(authService);
 
 export class AuthController {
-  async register(req: Request, res: Response) {
-    try {
-      const user = await registerUseCase.execute(req.body);
-      res.status(201).json({ success: true, data: user.value });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Registration failed';
-      res.status(400).json({ success: false, message });
-    }
-  }
+  register = asyncHandler(async (req: Request, res: Response) => {
+    const result = await registerUseCase.execute(req.body);
+    
+    return ApiResponse.success(
+      res,
+      result,
+      getSuccessMessage('CREATED'),
+      HttpStatus.CREATED
+    );
+  });
 
-  async login(req: Request, res: Response) {
-    try {
-      const result = await loginUseCase.execute(req.body);
-      res.status(200).json({ success: true, data: result });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Login failed';
-      res.status(401).json({ success: false, message });
+  login = asyncHandler(async (req: Request, res: Response) => {
+    const result = await loginUseCase.execute(req.body);
+    
+    if (!result) {
+      throw new AuthenticationError(getErrorMessage('UNAUTHORIZED'));
     }
-  }
 
-  async refreshToken(req: Request, res: Response) {
-    try {
-      const token = await refreshUseCase.execute(req.body.userId);
-      res.status(200).json({ success: true, token });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Token refresh failed';
-      res.status(400).json({ success: false, message });
+    return ApiResponse.success(
+      res,
+      result,
+      getSuccessMessage('RETRIEVED'),
+      HttpStatus.OK
+    );
+  });
+
+  refreshToken = asyncHandler(async (req: Request, res: Response) => {
+    const { userId } = req.body;
+    
+    if (!userId) {
+      throw new ValidationError('User ID is required for token refresh');
     }
-  }
+
+    const result = await refreshUseCase.execute(userId);
+    
+    if (!result) {
+      throw new AuthenticationError(getErrorMessage('UNAUTHORIZED'));
+    }
+
+    return ApiResponse.success(
+      res,
+      result,
+      getSuccessMessage('RETRIEVED'),
+      HttpStatus.OK
+    );
+  });
 }

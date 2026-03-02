@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import { errorMiddleware } from './middleware/error.middleware';
-import { routes } from './routes';
+import routes from './routes';
 import { requestMiddleware } from './middleware/request.middleware';
 import { responseMiddleware } from './middleware/response.middleware';
 
@@ -19,6 +19,8 @@ app.use(requestMiddleware);
 // Routes
 app.use('/api', routes);
 
-// Response & Error handling
+// Response middleware (before error handling)
 app.use(responseMiddleware);
+
+// Error middleware (must be last)
 app.use(errorMiddleware);
