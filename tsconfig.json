@@ -2,16 +2,18 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "CommonJS",
-    "rootDir": "./src",
+    "rootDir": ".",              // ✅ Use project root instead of ./src
     "outDir": "./dist",
-    "baseUrl": "./src",
+    "baseUrl": ".",              // ✅ Base URL at project root
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["*"]               // ✅ Keep alias pointing to root files
     },
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
     "resolveJsonModule": true
-  }
+  },
+  "include": ["**/*.ts"],       // ✅ Include all TS files in root and subfolders
+  "exclude": ["node_modules", "dist"]
 }
