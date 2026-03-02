@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import type { Request, Response, NextFunction, RequestHandler } from 'express';
 
 // Wrap an async Express handler to catch errors
 export const asyncHandler = (fn: RequestHandler) => (

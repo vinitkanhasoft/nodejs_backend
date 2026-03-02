@@ -1,5 +1,5 @@
-import { addNotificationJob } from './notification.queue';
-import { NotificationType } from '../enums';
+import { addNotificationJob } from './notification.queue.ts';
+import { NotificationType } from '../enums/index.ts';
 
 // Define a generic payload interface (customize fields as needed)
 export interface NotificationPayload {

@@ -1,22 +1,22 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import {
   ApiResponse,
   asyncHandler,
   AuthenticationError,
   ValidationError,
   ConflictError,
-} from '../../../utils';
-import { RegisterUseCase } from '../application/usecases/register.usecase';
-import { LoginUseCase } from '../application/usecases/login.usecase';
-import { RefreshTokenUseCase } from '../application/usecases/refreshToken.usecase';
-import { AuthService } from '../application/services/auth.service';
-import { AuthRepository } from '../infrastructure/repositories/auth.repository';
+} from '../../../utils/index.ts';
+import { RegisterUseCase } from '../application/usecases/register.usecase.ts';
+import { LoginUseCase } from '../application/usecases/login.usecase.ts';
+import { RefreshTokenUseCase } from '../application/usecases/refreshToken.usecase.ts';
+import { AuthService } from '../application/services/auth.service.ts';
+import { AuthRepository } from '../infrastructure/repositories/auth.repository.ts';
 import {
   Constants,
   HttpStatus,
   getSuccessMessage,
   getErrorMessage,
-} from '../../../config';
+} from '../../../config/index.ts';
 
 const authRepo = new AuthRepository();
 const authService = new AuthService(authRepo);

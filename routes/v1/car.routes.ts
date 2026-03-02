@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { CarController } from '../../modules/car/presentation/car.controller';
-import { validateBody, validateQuery } from '../../middleware/validation.middleware';
+import { CarController } from '../../modules/car/presentation/car.controller.ts';
+import { validateBody, validateQuery } from '../../middleware/validation.middleware.ts';
 import {
   createCarSchema,
   updateCarSchema,
   searchCarSchema,
-} from '../../modules/car/presentation/car.validation';
+} from '../../modules/car/presentation/car.validation.ts';
 
 const router = Router();
 const controller = new CarController();

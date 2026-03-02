@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import authRoutes from './auth.routes';
-import userRoutes from './user.routes';
-import carRoutes from './car.routes';
-import orderRoutes from './order.routes';
+import authRoutes from './auth.routes.ts';
+import userRoutes from './user.routes.ts';
+import carRoutes from './car.routes.ts';
+import orderRoutes from './order.routes.ts';
 
 const router = Router();
 

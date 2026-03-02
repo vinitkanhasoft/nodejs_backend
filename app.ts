@@ -2,10 +2,10 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-import { errorMiddleware } from './middleware/error.middleware';
-import routes from './routes';
-import { requestMiddleware } from './middleware/request.middleware';
-import { responseMiddleware } from './middleware/response.middleware';
+import { errorMiddleware } from './middleware/error.middleware.ts';
+import routes from './routes/index.ts';
+import { requestMiddleware } from './middleware/request.middleware.ts';
+import { responseMiddleware } from './middleware/response.middleware.ts';
 
 export const app = express();
 
