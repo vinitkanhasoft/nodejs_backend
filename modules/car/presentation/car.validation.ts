@@ -1,4 +1,4 @@
-import { CommonValidationRules, type ValidationRule } from '../../../utils';
+import { CommonValidationRules, type ValidationRule } from '../../../utils/index.ts';
 
 export const createCarSchema: Record<string, ValidationRule> = {
   name: {

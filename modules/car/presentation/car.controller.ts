@@ -1,13 +1,16 @@
-import { Request, Response } from 'express';
-import { ApiResponse, asyncHandler, NotFoundError, ValidationError, paginate, type PaginationOptions } from '../../../utils';
-import { CarService } from '../application/services/car.service';
-import { CreateCarUseCase } from '../application/usecases/createCar.usecase';
-import { UpdateCarUseCase } from '../application/usecases/updateCar.usecase';
-import { DeleteCarUseCase } from '../application/usecases/deleteCar.usecase';
-import { SearchCarsUseCase } from '../application/usecases/searchCars.usecase';
-import { AnalyticsUseCase } from '../application/usecases/analytics.usecase';
-import { CarRepository } from '../infrastructure/repositories/car.repository';
-import { Constants, getSuccessMessage, getErrorMessage } from '../../../config';
+import type { Request, Response } from 'express';
+import { ApiResponse } from '../../../utils/ApiResponse.ts';
+import { asyncHandler } from '../../../utils/asyncHandler.ts';
+import { NotFoundError, ValidationError } from '../../../utils/errors.ts';
+import { paginate, type PaginationOptions } from '../../../utils/pagination.ts';
+import { CarService } from '../application/services/car.service.ts';
+import { CreateCarUseCase } from '../application/usecases/createCar.usecase.ts';
+import { UpdateCarUseCase } from '../application/usecases/updateCar.usecase.ts';
+import { DeleteCarUseCase } from '../application/usecases/deleteCar.usecase.ts';
+import { SearchCarsUseCase } from '../application/usecases/searchCars.usecase.ts';
+import { AnalyticsUseCase } from '../application/usecases/analytics.usecase.ts';
+import { CarRepository } from '../infrastructure/repositories/car.repository.ts';
+import { Constants, getSuccessMessage, getErrorMessage } from '../../../config/index.ts';
 
 const carRepo = new CarRepository();
 const carService = new CarService(carRepo);
@@ -22,14 +25,10 @@ export class CarController {
   create = asyncHandler(async (req: Request, res: Response) => {
     const result = await createCarUseCase.execute(req.body);
     
-    if (!result.isSuccess) {
-      throw new ValidationError(result.error?.message || 'Failed to create car');
-    }
-
     return ApiResponse.success(
       res,
-      result.value,
-      getErrorMessage('CREATED'),
+      result,
+      getSuccessMessage('CREATED'),
       Constants.HttpStatus.CREATED
     );
   });
@@ -52,8 +51,8 @@ export class CarController {
 
     return ApiResponse.success(
       res,
-      result.value,
-      getErrorMessage('UPDATED'),
+      result,
+      getSuccessMessage('UPDATED'),
       Constants.HttpStatus.OK
     );
   });
@@ -77,7 +76,7 @@ export class CarController {
     return ApiResponse.success(
       res,
       null,
-      getErrorMessage('DELETED'),
+      getSuccessMessage('DELETED'),
       Constants.HttpStatus.OK
     );
   });
@@ -86,32 +85,21 @@ export class CarController {
     const { search, page = '1', limit = '10', sortBy, sortOrder } = req.query;
     
     const paginationOptions: PaginationOptions = {
-      page: parseInt(page as string) || Constants.PAGINATION.DEFAULT_PAGE,
-      limit: parseInt(limit as string) || Constants.PAGINATION.DEFAULT_LIMIT,
+      page: parseInt(page as string) || 1,
+      limit: parseInt(limit as string) || 10,
     };
 
-    const searchParams = {
-      search: search as string,
+    const result = await searchCarsUseCase.execute(search as string, {
+      page: paginationOptions.page,
+      limit: paginationOptions.limit,
       sortBy: sortBy as string,
       sortOrder: sortOrder as 'asc' | 'desc',
-      ...paginationOptions,
-    };
-
-    const result = await searchCarsUseCase.execute(searchParams);
-    
-    if (!result.isSuccess) {
-      throw new ValidationError(result.error?.message || 'Search failed');
-    }
-
-    // Apply pagination if result is an array
-    const paginatedData = Array.isArray(result.value) 
-      ? paginate(result.value, paginationOptions.page, paginationOptions.limit)
-      : result.value;
+    });
 
     return ApiResponse.success(
       res,
-      paginatedData,
-      getErrorMessage('RETRIEVED'),
+      result,
+      getSuccessMessage('RETRIEVED'),
       Constants.HttpStatus.OK
     );
   });
@@ -125,8 +113,8 @@ export class CarController {
 
     return ApiResponse.success(
       res,
-      result.value,
-      getErrorMessage('RETRIEVED'),
+      result,
+      getSuccessMessage('RETRIEVED'),
       Constants.HttpStatus.OK
     );
   });

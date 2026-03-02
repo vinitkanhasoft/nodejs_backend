@@ -1,4 +1,4 @@
-import { HttpStatus } from '../config/constants';
+import { HttpStatus } from '../config/constants.ts';
 
 export class AppError extends Error {
   public readonly statusCode: number;

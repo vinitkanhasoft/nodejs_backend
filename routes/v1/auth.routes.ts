@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { AuthController } from '../../modules/auth/presentation/auth.controller';
-import { validateBody } from '../../middleware/validation.middleware';
-import { registerSchema, loginSchema, refreshSchema } from '../../modules/auth/presentation/auth.validation';
+import { AuthController } from '../../modules/auth/presentation/auth.controller.ts';
+import { validateBody } from '../../middleware/validation.middleware.ts';
+import { registerSchema, loginSchema, refreshSchema } from '../../modules/auth/presentation/auth.validation.ts';
 
 const router = Router();
 const authController = new AuthController();

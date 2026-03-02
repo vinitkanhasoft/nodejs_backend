@@ -1,8 +1,12 @@
-import { CarService } from '../services/car.service';
-import { carAnalyticsPipeline } from '../../infrastructure/pipelines';
+import { CarService } from '../services/car.service.ts';
+import { carAnalyticsPipeline } from '../../infrastructure/pipelines/index.ts';
 
 export class AnalyticsUseCase {
-  constructor(private service: CarService) {}
+  private service: CarService;
+
+  constructor(service: CarService) {
+    this.service = service;
+  }
 
   execute() {
     return this.service.aggregate(carAnalyticsPipeline());

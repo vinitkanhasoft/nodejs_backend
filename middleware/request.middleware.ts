@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 
 // Module augmentation instead of namespace
 declare module 'express-serve-static-core' {

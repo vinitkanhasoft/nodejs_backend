@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { DomainEvent } from './domain.events';
+import { DomainEvent } from './domain.events.ts';
 
 export class EventBus extends EventEmitter {
   publish(event: DomainEvent) {

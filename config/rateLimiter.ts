@@ -1,8 +1,8 @@
 import rateLimit from 'express-rate-limit';
-import { env } from './env';
+import { config } from './env.ts';
 
 export const apiRateLimiter = rateLimit({
-  windowMs: env.rateLimitWindowMs,
-  max: env.rateLimitMax,
+  windowMs: config.rateLimit.windowMs,
+  max: config.rateLimit.max,
   message: 'Too many requests from this IP, please try again later.',
 });

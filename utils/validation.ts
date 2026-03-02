@@ -1,6 +1,6 @@
-import { Constants } from '../config/constants';
-import { ValidationError } from './errors';
-import { isString, isNumber, isBoolean, isObject, isArray, isEmail, isUrl } from './helpers';
+import { Constants } from '../config/constants.ts';
+import { ValidationError } from './errors.ts';
+import { isString, isNumber, isBoolean, isObject, isArray, isEmail, isUrl } from './helpers.ts';
 
 export interface ValidationRule {
   field: string;

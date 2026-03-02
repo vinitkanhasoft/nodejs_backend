@@ -1,8 +1,12 @@
-import { CarService } from '../services/car.service';
-import { ICar } from '../../domain/car.types';
+import { CarService } from '../services/car.service.ts';
+import type { ICar } from '../../domain/car.types.ts';
 
 export class CreateCarUseCase {
-  constructor(private service: CarService) {}
+  private service: CarService;
+
+  constructor(service: CarService) {
+    this.service = service;
+  }
 
   execute(data: ICar) {
     return this.service.create(data);
